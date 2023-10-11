@@ -57,6 +57,35 @@ struct fwd_mip_ttree_data {
    vector<int> fcs_rec_hcalTrkIndex ;
 
 
+  //-- new analysis stuff
+   int n_mip ;
+   vector<float> mip_ecal_E ;
+   vector<int>   mip_ecal_nhit ;
+   vector<float> mip_ecal_x ;
+   vector<float> mip_ecal_y ;
+   vector<float> mip_ecal_iso20 ;
+   vector<float> mip_ecal_iso30 ;
+   vector<int>   mip_trk_nsys ;
+   vector<float> mip_trk_x ;
+   vector<float> mip_trk_y ;
+   vector<float> mip_hcal_E ;
+   vector<int>   mip_hcal_nhit ;
+   vector<float> mip_hcal_x ;
+   vector<float> mip_hcal_y ;
+   vector<float> mip_hcal_iso20 ;
+   vector<float> mip_hcal_iso30 ;
+   vector<float> mip_hcal_ecal_cos_angle ;
+
+   vector<int>   mip_ecal_hit0ind ;
+   vector<int>   mip_ecal_hit1ind ;
+
+   vector<int>   mip_hcal_hit0ind ;
+   vector<int>   mip_hcal_hit1ind ;
+   vector<int>   mip_hcal_hit2ind ;
+   vector<int>   mip_hcal_hit3ind ;
+   vector<int>   mip_hcal_hit4ind ;
+
+   vector<int>   mip_trk_ind ;
 
 } ;
 
@@ -78,6 +107,12 @@ class StFwdMipAnalysisMaker : public StMaker {
 
   private:
   protected:
+
+    bool quiet ;
+
+    void ecal_check_neighbors( int hit_index, vector<int>& all_neighbors ) ;
+    void hcal_check_neighbors( int hit_index, vector<int>& all_neighbors ) ;
+
 
     TFile* m_tf_output_ttree = nullptr ;
     TTree* m_tt_output_ttree = nullptr ;
