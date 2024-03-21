@@ -105,6 +105,8 @@ class StFwdMipAnalysisMaker : public StMaker {
     void ProcessFwdTracks();
     void ProcessFwdMuTracks();
 
+    void setQuiet( bool quietVal = true ) { quiet = quietVal ;  printf("\n\n Owen : Set quiet to %d\n\n", quietVal ) ; }
+
   private:
   protected:
 

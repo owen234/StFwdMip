@@ -59,7 +59,7 @@
 #include "StFcsDbMaker/StFcsDb.h"
 
 //________________________________________________________________________
-StFwdMipAnalysisMaker::StFwdMipAnalysisMaker() : StMaker("fwdAna"){};
+StFwdMipAnalysisMaker::StFwdMipAnalysisMaker() : StMaker("fwdMipAna"){};
 int StFwdMipAnalysisMaker::Finish() { 
     
     auto prevDir = gDirectory;
@@ -81,6 +81,8 @@ int StFwdMipAnalysisMaker::Finish() {
     m_tf_output_ttree -> cd() ;
     m_tt_output_ttree -> Write() ;
     m_tf_output_ttree -> Write() ;
+
+    quiet = true ;
 
     return kStOk; 
 }
@@ -149,80 +151,80 @@ int StFwdMipAnalysisMaker::Init() {
 
     gROOT -> ProcessLine("#include <vector>") ; // owen: why is this necessary!?
 
-//  m_tt_output_ttree -> Branch( "rcN",   &m_ttree_data. rcN, "rcN/I" ) ;
-//  m_tt_output_ttree -> Branch( "rcPt",  &m_ttree_data. rcPt ) ;
-//  m_tt_output_ttree -> Branch( "rcEta", &m_ttree_data. rcEta ) ;
-//  m_tt_output_ttree -> Branch( "rcPhi", &m_ttree_data. rcPhi ) ;
+    m_tt_output_ttree -> Branch( "rcN",   &m_ttree_data. rcN, "rcN/I" ) ;
+    m_tt_output_ttree -> Branch( "rcPt",  &m_ttree_data. rcPt ) ;
+    m_tt_output_ttree -> Branch( "rcEta", &m_ttree_data. rcEta ) ;
+    m_tt_output_ttree -> Branch( "rcPhi", &m_ttree_data. rcPhi ) ;
 
-//  m_tt_output_ttree -> Branch( "rcNumFST", &m_ttree_data. rcNumFST ) ;
-//  m_tt_output_ttree -> Branch( "rcNumFTT", &m_ttree_data. rcNumFTT ) ;
+    m_tt_output_ttree -> Branch( "rcNumFST", &m_ttree_data. rcNumFST ) ;
+    m_tt_output_ttree -> Branch( "rcNumFTT", &m_ttree_data. rcNumFTT ) ;
 
-//  m_tt_output_ttree -> Branch( "rcProjEcalx", &m_ttree_data. rcProjEcalx ) ;
-//  m_tt_output_ttree -> Branch( "rcProjEcaly", &m_ttree_data. rcProjEcaly ) ;
-//  m_tt_output_ttree -> Branch( "rcProjEcalz", &m_ttree_data. rcProjEcalz ) ;
-//  m_tt_output_ttree -> Branch( "rcProjHcalx", &m_ttree_data. rcProjHcalx ) ;
-//  m_tt_output_ttree -> Branch( "rcProjHcaly", &m_ttree_data. rcProjHcaly ) ;
-//  m_tt_output_ttree -> Branch( "rcProjHcalz", &m_ttree_data. rcProjHcalz ) ;
-//  m_tt_output_ttree -> Branch( "rcProjEcalPx", &m_ttree_data. rcProjEcalPx ) ;
-//  m_tt_output_ttree -> Branch( "rcProjEcalPy", &m_ttree_data. rcProjEcalPy ) ;
-//  m_tt_output_ttree -> Branch( "rcProjEcalPz", &m_ttree_data. rcProjEcalPz ) ;
+    m_tt_output_ttree -> Branch( "rcProjEcalx", &m_ttree_data. rcProjEcalx ) ;
+    m_tt_output_ttree -> Branch( "rcProjEcaly", &m_ttree_data. rcProjEcaly ) ;
+    m_tt_output_ttree -> Branch( "rcProjEcalz", &m_ttree_data. rcProjEcalz ) ;
+    m_tt_output_ttree -> Branch( "rcProjHcalx", &m_ttree_data. rcProjHcalx ) ;
+    m_tt_output_ttree -> Branch( "rcProjHcaly", &m_ttree_data. rcProjHcaly ) ;
+    m_tt_output_ttree -> Branch( "rcProjHcalz", &m_ttree_data. rcProjHcalz ) ;
+    m_tt_output_ttree -> Branch( "rcProjEcalPx", &m_ttree_data. rcProjEcalPx ) ;
+    m_tt_output_ttree -> Branch( "rcProjEcalPy", &m_ttree_data. rcProjEcalPy ) ;
+    m_tt_output_ttree -> Branch( "rcProjEcalPz", &m_ttree_data. rcProjEcalPz ) ;
 
-//  m_tt_output_ttree -> Branch( "rcEcalClIndex", &m_ttree_data. rcEcalClIndex ) ;
-//  m_tt_output_ttree -> Branch( "rcHcalClIndex", &m_ttree_data. rcHcalClIndex ) ;
+    m_tt_output_ttree -> Branch( "rcEcalClIndex", &m_ttree_data. rcEcalClIndex ) ;
+    m_tt_output_ttree -> Branch( "rcHcalClIndex", &m_ttree_data. rcHcalClIndex ) ;
 
-//  m_tt_output_ttree -> Branch( "rcEcalClNhit", &m_ttree_data. rcEcalClNhit ) ;
-//  m_tt_output_ttree -> Branch( "rcHcalClNhit", &m_ttree_data. rcHcalClNhit ) ;
+    m_tt_output_ttree -> Branch( "rcEcalClNhit", &m_ttree_data. rcEcalClNhit ) ;
+    m_tt_output_ttree -> Branch( "rcHcalClNhit", &m_ttree_data. rcHcalClNhit ) ;
 
-//  m_tt_output_ttree -> Branch( "rcEcalClE", &m_ttree_data. rcEcalClE ) ;
-//  m_tt_output_ttree -> Branch( "rcHcalClE", &m_ttree_data. rcHcalClE ) ;
-//  m_tt_output_ttree -> Branch( "rcEcalClDx", &m_ttree_data. rcEcalClDx ) ;
-//  m_tt_output_ttree -> Branch( "rcEcalClDy", &m_ttree_data. rcEcalClDy ) ;
-//  m_tt_output_ttree -> Branch( "rcEcalClDr", &m_ttree_data. rcEcalClDr ) ;
-//  m_tt_output_ttree -> Branch( "rcHcalClDx", &m_ttree_data. rcHcalClDx ) ;
-//  m_tt_output_ttree -> Branch( "rcHcalClDy", &m_ttree_data. rcHcalClDy ) ;
-//  m_tt_output_ttree -> Branch( "rcHcalClDr", &m_ttree_data. rcHcalClDr ) ;
+    m_tt_output_ttree -> Branch( "rcEcalClE", &m_ttree_data. rcEcalClE ) ;
+    m_tt_output_ttree -> Branch( "rcHcalClE", &m_ttree_data. rcHcalClE ) ;
+    m_tt_output_ttree -> Branch( "rcEcalClDx", &m_ttree_data. rcEcalClDx ) ;
+    m_tt_output_ttree -> Branch( "rcEcalClDy", &m_ttree_data. rcEcalClDy ) ;
+    m_tt_output_ttree -> Branch( "rcEcalClDr", &m_ttree_data. rcEcalClDr ) ;
+    m_tt_output_ttree -> Branch( "rcHcalClDx", &m_ttree_data. rcHcalClDx ) ;
+    m_tt_output_ttree -> Branch( "rcHcalClDy", &m_ttree_data. rcHcalClDy ) ;
+    m_tt_output_ttree -> Branch( "rcHcalClDr", &m_ttree_data. rcHcalClDr ) ;
 
-//  m_tt_output_ttree -> Branch( "fcs_cl_ecalN", &m_ttree_data. fcs_cl_ecalN, "fcs_cl_ecalN/I" ) ;
-//  m_tt_output_ttree -> Branch( "fcs_cl_ecalE", &m_ttree_data. fcs_cl_ecalE ) ;
-//  m_tt_output_ttree -> Branch( "fcs_cl_ecalX", &m_ttree_data. fcs_cl_ecalX ) ;
-//  m_tt_output_ttree -> Branch( "fcs_cl_ecalY", &m_ttree_data. fcs_cl_ecalY ) ;
-//  m_tt_output_ttree -> Branch( "fcs_cl_ecalZ", &m_ttree_data. fcs_cl_ecalZ ) ;
-//  m_tt_output_ttree -> Branch( "fcs_cl_ecalNhit", &m_ttree_data. fcs_cl_ecalNhit ) ;
+    m_tt_output_ttree -> Branch( "fcs_cl_ecalN", &m_ttree_data. fcs_cl_ecalN, "fcs_cl_ecalN/I" ) ;
+    m_tt_output_ttree -> Branch( "fcs_cl_ecalE", &m_ttree_data. fcs_cl_ecalE ) ;
+    m_tt_output_ttree -> Branch( "fcs_cl_ecalX", &m_ttree_data. fcs_cl_ecalX ) ;
+    m_tt_output_ttree -> Branch( "fcs_cl_ecalY", &m_ttree_data. fcs_cl_ecalY ) ;
+    m_tt_output_ttree -> Branch( "fcs_cl_ecalZ", &m_ttree_data. fcs_cl_ecalZ ) ;
+    m_tt_output_ttree -> Branch( "fcs_cl_ecalNhit", &m_ttree_data. fcs_cl_ecalNhit ) ;
 
-//  m_tt_output_ttree -> Branch( "fcs_cl_hcalN", &m_ttree_data. fcs_cl_hcalN, "fcs_cl_hcalN/I" ) ;
-//  m_tt_output_ttree -> Branch( "fcs_cl_hcalE", &m_ttree_data. fcs_cl_hcalE ) ;
-//  m_tt_output_ttree -> Branch( "fcs_cl_hcalX", &m_ttree_data. fcs_cl_hcalX ) ;
-//  m_tt_output_ttree -> Branch( "fcs_cl_hcalY", &m_ttree_data. fcs_cl_hcalY ) ;
-//  m_tt_output_ttree -> Branch( "fcs_cl_hcalZ", &m_ttree_data. fcs_cl_hcalZ ) ;
-//  m_tt_output_ttree -> Branch( "fcs_cl_hcalNhit", &m_ttree_data. fcs_cl_hcalNhit ) ;
-
-
+    m_tt_output_ttree -> Branch( "fcs_cl_hcalN", &m_ttree_data. fcs_cl_hcalN, "fcs_cl_hcalN/I" ) ;
+    m_tt_output_ttree -> Branch( "fcs_cl_hcalE", &m_ttree_data. fcs_cl_hcalE ) ;
+    m_tt_output_ttree -> Branch( "fcs_cl_hcalX", &m_ttree_data. fcs_cl_hcalX ) ;
+    m_tt_output_ttree -> Branch( "fcs_cl_hcalY", &m_ttree_data. fcs_cl_hcalY ) ;
+    m_tt_output_ttree -> Branch( "fcs_cl_hcalZ", &m_ttree_data. fcs_cl_hcalZ ) ;
+    m_tt_output_ttree -> Branch( "fcs_cl_hcalNhit", &m_ttree_data. fcs_cl_hcalNhit ) ;
 
 
 
-//  m_tt_output_ttree ->Branch("fcs_rec_ecalN", &m_ttree_data.fcs_rec_ecalN, "fcs_rec_ecalN/I" ) ;
-//  m_tt_output_ttree ->Branch("fcs_rec_ecalX", &m_ttree_data.fcs_rec_ecalX ) ;
-//  m_tt_output_ttree ->Branch("fcs_rec_ecalY", &m_ttree_data.fcs_rec_ecalY ) ;
-//  m_tt_output_ttree ->Branch("fcs_rec_ecalZ", &m_ttree_data.fcs_rec_ecalZ ) ;
-//  m_tt_output_ttree ->Branch("fcs_rec_ecalLX", &m_ttree_data.fcs_rec_ecalLX ) ;
-//  m_tt_output_ttree ->Branch("fcs_rec_ecalLY", &m_ttree_data.fcs_rec_ecalLY ) ;
-//  m_tt_output_ttree ->Branch("fcs_rec_ecalE", &m_ttree_data.fcs_rec_ecalE ) ;
-//  m_tt_output_ttree ->Branch("fcs_rec_ecalId", &m_ttree_data.fcs_rec_ecalId ) ;
-//  m_tt_output_ttree ->Branch("fcs_rec_ecalDet", &m_ttree_data.fcs_rec_ecalDet ) ;
-//  m_tt_output_ttree ->Branch("fcs_rec_ecalClIndex", &m_ttree_data.fcs_rec_ecalClIndex ) ;
-//  m_tt_output_ttree ->Branch("fcs_rec_ecalTrkIndex", &m_ttree_data.fcs_rec_ecalTrkIndex ) ;
 
-//  m_tt_output_ttree ->Branch("fcs_rec_hcalN", &m_ttree_data.fcs_rec_hcalN, "fcs_rec_hcalN/I" ) ;
-//  m_tt_output_ttree ->Branch("fcs_rec_hcalX", &m_ttree_data.fcs_rec_hcalX ) ;
-//  m_tt_output_ttree ->Branch("fcs_rec_hcalY", &m_ttree_data.fcs_rec_hcalY ) ;
-//  m_tt_output_ttree ->Branch("fcs_rec_hcalZ", &m_ttree_data.fcs_rec_hcalZ ) ;
-//  m_tt_output_ttree ->Branch("fcs_rec_hcalLX", &m_ttree_data.fcs_rec_hcalLX ) ;
-//  m_tt_output_ttree ->Branch("fcs_rec_hcalLY", &m_ttree_data.fcs_rec_hcalLY ) ;
-//  m_tt_output_ttree ->Branch("fcs_rec_hcalE", &m_ttree_data.fcs_rec_hcalE ) ;
-//  m_tt_output_ttree ->Branch("fcs_rec_hcalId", &m_ttree_data.fcs_rec_hcalId ) ;
-//  m_tt_output_ttree ->Branch("fcs_rec_hcalDet", &m_ttree_data.fcs_rec_hcalDet ) ;
-//  m_tt_output_ttree ->Branch("fcs_rec_hcalClIndex", &m_ttree_data.fcs_rec_hcalClIndex ) ;
-//  m_tt_output_ttree ->Branch("fcs_rec_hcalTrkIndex", &m_ttree_data.fcs_rec_hcalTrkIndex ) ;
+
+    m_tt_output_ttree ->Branch("fcs_rec_ecalN", &m_ttree_data.fcs_rec_ecalN, "fcs_rec_ecalN/I" ) ;
+    m_tt_output_ttree ->Branch("fcs_rec_ecalX", &m_ttree_data.fcs_rec_ecalX ) ;
+    m_tt_output_ttree ->Branch("fcs_rec_ecalY", &m_ttree_data.fcs_rec_ecalY ) ;
+    m_tt_output_ttree ->Branch("fcs_rec_ecalZ", &m_ttree_data.fcs_rec_ecalZ ) ;
+    m_tt_output_ttree ->Branch("fcs_rec_ecalLX", &m_ttree_data.fcs_rec_ecalLX ) ;
+    m_tt_output_ttree ->Branch("fcs_rec_ecalLY", &m_ttree_data.fcs_rec_ecalLY ) ;
+    m_tt_output_ttree ->Branch("fcs_rec_ecalE", &m_ttree_data.fcs_rec_ecalE ) ;
+    m_tt_output_ttree ->Branch("fcs_rec_ecalId", &m_ttree_data.fcs_rec_ecalId ) ;
+    m_tt_output_ttree ->Branch("fcs_rec_ecalDet", &m_ttree_data.fcs_rec_ecalDet ) ;
+    m_tt_output_ttree ->Branch("fcs_rec_ecalClIndex", &m_ttree_data.fcs_rec_ecalClIndex ) ;
+    m_tt_output_ttree ->Branch("fcs_rec_ecalTrkIndex", &m_ttree_data.fcs_rec_ecalTrkIndex ) ;
+
+    m_tt_output_ttree ->Branch("fcs_rec_hcalN", &m_ttree_data.fcs_rec_hcalN, "fcs_rec_hcalN/I" ) ;
+    m_tt_output_ttree ->Branch("fcs_rec_hcalX", &m_ttree_data.fcs_rec_hcalX ) ;
+    m_tt_output_ttree ->Branch("fcs_rec_hcalY", &m_ttree_data.fcs_rec_hcalY ) ;
+    m_tt_output_ttree ->Branch("fcs_rec_hcalZ", &m_ttree_data.fcs_rec_hcalZ ) ;
+    m_tt_output_ttree ->Branch("fcs_rec_hcalLX", &m_ttree_data.fcs_rec_hcalLX ) ;
+    m_tt_output_ttree ->Branch("fcs_rec_hcalLY", &m_ttree_data.fcs_rec_hcalLY ) ;
+    m_tt_output_ttree ->Branch("fcs_rec_hcalE", &m_ttree_data.fcs_rec_hcalE ) ;
+    m_tt_output_ttree ->Branch("fcs_rec_hcalId", &m_ttree_data.fcs_rec_hcalId ) ;
+    m_tt_output_ttree ->Branch("fcs_rec_hcalDet", &m_ttree_data.fcs_rec_hcalDet ) ;
+    m_tt_output_ttree ->Branch("fcs_rec_hcalClIndex", &m_ttree_data.fcs_rec_hcalClIndex ) ;
+    m_tt_output_ttree ->Branch("fcs_rec_hcalTrkIndex", &m_ttree_data.fcs_rec_hcalTrkIndex ) ;
 
 
     m_tt_output_ttree ->Branch("n_mip", &m_ttree_data.n_mip, "n_mip/I" ) ;
@@ -259,8 +261,8 @@ int StFwdMipAnalysisMaker::Init() {
 
     m_tt_output_ttree -> SetAutoFlush(0) ;
 
-    //quiet = false ;
-    quiet = true ;
+    if ( ! quiet ) printf("\n\n Owen : quiet is set to false.\n\n") ;
+    if (   quiet ) printf("\n\n Owen : quiet is set to TRUE.\n\n") ;
 
     return kStOK;
 }
@@ -389,12 +391,14 @@ void StFwdMipAnalysisMaker::Clear(const Option_t *opts) {
 //________________________________________________________________________
 void StFwdMipAnalysisMaker::ProcessFwdTracks(  ){
 
-    gMessMgr -> SwitchOff("I") ;
-    gMessMgr -> SwitchOff("Q") ;
-    gMessMgr -> SwitchOff("W") ;
+    if ( quiet ) {
+       gMessMgr -> SwitchOff("I") ;
+       gMessMgr -> SwitchOff("Q") ;
+       gMessMgr -> SwitchOff("W") ;
+       gMessMgr -> SetLimit("I",0) ;
+    }
 
-    gMessMgr -> SetLimit("I",0) ;
-    ///int info_limit = gMessMgr -> GetLimit("I") ;
+    int info_limit = gMessMgr -> GetLimit("I") ;
     ///printf("  info limit is: %d\n", info_limit ) ;
 
     bool check_info = gMessMgr -> isInfoEnabled() ;
